@@ -1,7 +1,7 @@
 #!/bin/bash
 #LF
 # May 2019
-# Transform gnomad VCF files to bed format
+# Transform VCF file to bed format
 
 	# Put multiallelic lines separatly
 	# Extract variant sites and allelic info 

@@ -7,10 +7,12 @@
 	# Extract variant sites and allelic info 
 	# Transform in bed format
 vcf_file=$1
-bed_file="${vcf_file%.vcf.gz}.bed"
+#bed_file="${vcf_file%.vcf.gz}.bed"
+bed_file="${vcf_file%.vcf.gz}.mult.bed"
 
 echo "processing $vcf_file"
-bcftools norm -m "-both" ${vcf_file} | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%AF\n' | awk '{OFS="\t"; print "chr"$1, $2-1, $2, $3, $4, $5, $6, $7}' |sort -k1,1 -k2,2n > $bed_file
+#bcftools norm -m "-both" ${vcf_file} | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%AF\n' | awk '{OFS="\t"; print "chr"$1, $2-1, $2, $3, $4, $5, $6, $7}' |sort -k1,1 -k2,2n > $bed_file
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%AF\n' ${vcf_file} | awk '{OFS="\t"; print "chr"$1, $2-1, $2, $3, $4, $5, $6, $7}' |sort -k1,1 -k2,2n > $bed_file
 
 
 echo "done with $vcf_file"
